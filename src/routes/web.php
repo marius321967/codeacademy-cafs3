@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\GreetingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,18 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::name('products.')->prefix('/products')->controller(ProductController::class)->group(function () {
-    Route::get('/','index')->name('index');
-});
-
-Route::name('orders.')->prefix('/orders')->controller(OrderController::class)->group(function () {
-    Route::get('/','index')->name('index');
-});
-
-Route::get('/contact',function () {
-    return view('contact');
-})->name('contact');
+Route::get('/greet', [GreetingController::class, 'greetDefault']);
+Route::get('/greet/{name}', [GreetingController::class, 'greetName']);
