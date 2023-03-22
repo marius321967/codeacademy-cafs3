@@ -20,3 +20,5 @@ Route::get('/greet/{name}', [GreetingController::class, 'greetName']);
 
 Route::get('/tasks', [TaskController::class, 'list']);
 Route::post('/tasks', [TaskController::class, 'create']);
+Route::get('/tasks/{id}', [TaskController::class, 'find'])->whereNumber('id');
+Route::post('/tasks/{id}', [TaskController::class, 'update']);
