@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\GreetingController;
-use App\Http\Controllers\TasksController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/greet', [GreetingController::class, 'greetDefault']);
 Route::get('/greet/{name}', [GreetingController::class, 'greetName']);
 
-Route::get('/tasks', [TasksController::class, 'list']);
-Route::post('/tasks', [TasksController::class, 'create']);
-Route::post('/tasks/{id}', [TasksController::class, 'update']);
+Route::get('/tasks', [TaskController::class, 'list']);
+Route::post('/tasks', [TaskController::class, 'create']);
