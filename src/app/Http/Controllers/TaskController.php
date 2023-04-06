@@ -14,10 +14,17 @@ class TaskController extends Controller
         return $tasks;
     }
 
+    public function listAllCompleted()
+    {
+        // $tasks = Task::where('is_completed', true)->get();
+        $tasks = Task::completed()->get();
+        return $tasks;
+    }
+
     public function find($id)
     {
-        $task = Task::find($id);
-        return $task;
+        $task = Task::findOrFail($id);
+        return view('tasks.view', ['task' => $task]);
     }
 
     public function create(Request $request)
@@ -36,10 +43,22 @@ class TaskController extends Controller
         // $task->save();
         $fieldsToUpdate = $request->all();
 
-        Task::where('id', $id)
+        Task::where('is_completed', $id)
             ->update([
                 'title' => $fieldsToUpdate['title'],
                 'deadline' => $fieldsToUpdate['deadline']
             ]);
+    }
+
+    public function markCompleted($id, Request $request)
+    {
+        $task = Task::find($id);
+        $task->is_completed = true;
+        $task->save();
+    }
+
+    public function delete($id)
+    {
+        Task::destroy($id);
     }
 }
