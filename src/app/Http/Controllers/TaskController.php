@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -12,6 +13,14 @@ class TaskController extends Controller
     {
         $tasks = Task::all();
         return $tasks;
+    }
+
+    public function listUsersTasks(string $id)
+    {
+        $user = User::find($id);
+        $tasks = $user->tasks;
+
+        return view('home', ['tasks' => $tasks, 'user' => $user]);
     }
 
     public function listAllCompleted()

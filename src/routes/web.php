@@ -19,6 +19,7 @@ Route::get('/greet', [GreetingController::class, 'greetDefault']);
 Route::get('/greet/{name}', [GreetingController::class, 'greetName']);
 
 Route::get('/tasks', [TaskController::class, 'list']);
+Route::get('/tasks/user/{id}', [TaskController::class, 'listUsersTasks']);
 Route::get('/tasks/completed', [TaskController::class, 'listAllCompleted']);
 Route::post('/tasks', [TaskController::class, 'create']);
 Route::get('/tasks/{id}', [TaskController::class, 'find'])->whereNumber('id');
