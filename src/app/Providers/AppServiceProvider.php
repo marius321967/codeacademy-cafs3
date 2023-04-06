@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\ExchangeRates\ExampleApiExchangeRateService;
+use App\Services\ExchangeRates\ExchangeRateServiceInterface;
+use App\Services\ExchangeRates\FakeExchangeRateService;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,6 +15,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->singleton(ExampleApiExchangeRateService::class, function () {
+            $authKey = env('EXCHANGE_RATE_AUTH_KEY');
+            return new ExampleApiExchangeRateService($authKey);
+        });
+
+        $this->app->singleton(ExchangeRateServiceInterface::class, function () {
+            $source = env('EXCHANGE_RATE_SOURCE');
+
+            switch ($source) {
+                case 'fake':
+                    return $this->app->get(FakeExchangeRateService::class);
+                case 'real':
+                    return $this->app->get(ExampleApiExchangeRateService::class);
+            }
+        });
     }
 
     /**
@@ -18,6 +37,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->app->get(Factory::class)->share('newUsersThisWeekCount', 10);
     }
 }
