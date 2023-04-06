@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\GreetingController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,5 @@ Route::post('/tasks', [TaskController::class, 'create']);
 Route::get('/tasks/{id}', [TaskController::class, 'find'])->whereNumber('id');
 Route::post('/tasks/{id}', [TaskController::class, 'update'])->whereNumber('id');
 Route::delete('/tasks/{id}', [TaskController::class, 'delete'])->whereNumber('id');
+
+Route::get('/exchange-rates', [ExchangeController::class, 'index']);
