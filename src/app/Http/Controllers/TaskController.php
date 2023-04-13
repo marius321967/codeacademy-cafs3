@@ -51,12 +51,13 @@ class TaskController extends Controller
         // $task->deadline = $fieldsToUpdate['deadline'];
         // $task->save();
         $fieldsToUpdate = $request->all();
+        $updatingUser = $request->user();
 
-        Task::where('is_completed', $id)
-            ->update([
-                'title' => $fieldsToUpdate['title'],
-                'deadline' => $fieldsToUpdate['deadline']
-            ]);
+        $task = Task::find($id);
+        $task->title = $fieldsToUpdate['title'];
+        $task->deadline = $fieldsToUpdate['deadline'];
+        $task->last_updated_user_id = $updatingUser->id;
+        $task->save();
     }
 
     public function markCompleted($id, Request $request)
