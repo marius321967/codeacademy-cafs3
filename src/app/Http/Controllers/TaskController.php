@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskCreateRequest;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class TaskController extends Controller
         return view('tasks.view', ['task' => $task]);
     }
 
-    public function create(Request $request)
+    public function create(TaskCreateRequest $request)
     {
         $input = $request->all();
 
