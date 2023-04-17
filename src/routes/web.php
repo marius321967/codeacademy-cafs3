@@ -5,6 +5,8 @@ use App\Http\Controllers\GreetingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\TaskController;
+use App\Http\Middleware\AdminMiddleware;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +27,7 @@ Route::get('/greet', [GreetingController::class, 'greetDefault']);
 Route::get('/greet/{name}', [GreetingController::class, 'greetName']);
 
 Route::middleware([
-  'auth'
+  // 'auth'
   // ApiAuthMiddleware::class,
 ])->group(function () {
   Route::get('/tasks', [TaskController::class, 'list']);
@@ -35,6 +37,17 @@ Route::middleware([
   Route::get('/tasks/{id}', [TaskController::class, 'find'])->whereNumber('id');
   Route::post('/tasks/{id}', [TaskController::class, 'update'])->whereNumber('id');
   Route::delete('/tasks/{id}', [TaskController::class, 'delete'])->whereNumber('id');
+});
+
+Route::prefix('/admin')->group(function () {
+  Route::middleware([])->group(function () {
+    Route::get('/', function () {
+      if (!Gate::allows('admin'))
+        return response(['error' => 'Unauthorized (not admin)'], 403);
+
+      return 'Welcome to the admin panel';
+    });
+  });
 });
 
 Route::get('/exchange-rates', [ExchangeController::class, 'index']);

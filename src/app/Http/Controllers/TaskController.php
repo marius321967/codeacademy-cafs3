@@ -6,6 +6,7 @@ use App\Http\Requests\TaskCreateRequest;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -33,6 +34,10 @@ class TaskController extends Controller
 
     public function find($id)
     {
+        $this->authorize('task', Task::find($id));
+        // if (!Gate::allows('task', Task::find($id)))
+        //     abort(403);
+
         $task = Task::findOrFail($id);
         return view('tasks.view', ['task' => $task]);
     }

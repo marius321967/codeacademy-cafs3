@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Task;
+use App\Models\User;
 use App\Services\ExchangeRates\ExampleApiExchangeRateService;
 use App\Services\ExchangeRates\ExchangeRateServiceInterface;
 use App\Services\ExchangeRates\FakeExchangeRateService;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -38,5 +41,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->get(Factory::class)->share('newUsersThisWeekCount', 10);
+
+        Gate::define('admin', function (User $user): bool {
+            return $user->role === 'admin';
+        });
+
+        Gate::define('task', function (User $user, Task $task): bool {
+            return $user->id === $task->user_id;
+        });
     }
 }
