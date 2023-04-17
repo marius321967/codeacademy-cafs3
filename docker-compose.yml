@@ -16,7 +16,17 @@ services:
             - ./src:/var/www
         env_file:
            - .env
-    
+
+    node:
+        container_name: ca-l-node
+        image: node:18
+        working_dir: /app
+        volumes:
+          - ./node:/app
+        ports:
+          - 3000:3000
+        command: tail -f /dev/null
+
     mysql:
         container_name: ca-l-mysql
         image: mysql:8
