@@ -1,23 +1,49 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import Tasks from '../views/Tasks.vue'
+import Task from '../views/Task.vue'
+import Admin from '../views/Admin/Index.vue'
+import AdminHome from '../views/Admin/Home.vue'
+import AdminUsers from '../views/Admin/Users.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      component: Home
     },
     {
       path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: About
+    },
+    {
+      path: '/tasks',
+      component: Tasks
+    },
+    {
+      path: '/tasks/:id',
+      component: Task,
+      props: true
+    },
+    {
+      path: '/admin',
+      component: Admin,
+      children: [
+        {
+          path: '',
+          component: AdminHome
+        },
+        {
+          path: 'users',
+          component: AdminUsers
+        }
+      ]
     }
-  ]
+  ],
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'active'
 })
 
 export default router
