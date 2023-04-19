@@ -34,12 +34,13 @@ class TaskController extends Controller
 
     public function find($id)
     {
-        $this->authorize('task', Task::find($id));
+        // $this->authorize('task', Task::find($id));
         // if (!Gate::allows('task', Task::find($id)))
         //     abort(403);
 
         $task = Task::findOrFail($id);
-        return view('tasks.view', ['task' => $task]);
+        // return view('tasks.view', ['task' => $task]);
+        return $task;
     }
 
     public function create(TaskCreateRequest $request)
