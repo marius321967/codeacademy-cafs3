@@ -6,7 +6,9 @@ import Navigation from './components/Navigation.vue'
 <template>
   <Navigation />
 
-  <router-view></router-view>
+  <div class="container pt-4">
+    <router-view></router-view>
+  </div>
 </template>
 
 <style lang="scss">

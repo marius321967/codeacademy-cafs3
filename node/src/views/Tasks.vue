@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import type { ITask } from '../interfaces'
-import axios from 'axios'
+import { onMounted } from 'vue'
+import { useTasksStore } from '../stores/tasks'
 import Task from './Tasks/Task.vue'
+import TaskForm from './Tasks/TaskForm.vue'
 
-const tasks = ref<ITask[]>([])
+const tasksStore = useTasksStore()
 
-onMounted(() => {
-  axios.get('http://localhost/tasks').then((res) => {
-    tasks.value = res.data
-  })
-})
+onMounted(() => tasksStore.ensureTasksLoaded())
 </script>
 
 <template>
   <div>
-    <table class="table">
+    <div>
+      <task-form @task-created="tasksStore.refreshTasks()" />
+    </div>
+
+    <hr />
+
+    <table class="table" v-if="tasksStore.tasks !== null">
       <thead>
         <tr>
           <th>Task</th>
@@ -25,8 +27,15 @@ onMounted(() => {
       </thead>
 
       <tbody>
-        <task v-for="task in tasks" :task="task"></task>
+        <task v-for="task in tasksStore.tasks" :task="task"></task>
       </tbody>
     </table>
+
+    <div
+      class="spinner-border text-success"
+      v-if="tasksStore.isLoading && tasksStore.tasks === null"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
 </template>

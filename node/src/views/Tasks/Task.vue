@@ -14,6 +14,7 @@ const taskUrl = computed(() => `/tasks/${task.value.id}`)
 <template>
   <tr>
     <td>
+      <task-priority-indicator :priority="task.priority"></task-priority-indicator>
       <router-link :to="taskUrl">{{ task.title }}</router-link>
     </td>
     <td>
