@@ -1,35 +1,37 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useTasksStore } from '../stores/tasks'
-import Task from './Tasks/Task.vue'
 import TaskForm from './Tasks/TaskForm.vue'
+import TaskList from './Tasks/TaskList.vue'
+import type { ITask } from '../interfaces'
 
 const tasksStore = useTasksStore()
 
+const selectedTask = ref<ITask | null>(null)
+
 onMounted(() => tasksStore.ensureTasksLoaded())
+
+const onTaskRemove = (id: number) => tasksStore.removeTask(id)
+const onTaskSelect = (task: ITask) => (selectedTask.value = task)
 </script>
 
 <template>
   <div>
     <div>
-      <task-form @task-created="tasksStore.refreshTasks()" />
+      <task-form
+        :task="selectedTask"
+        @task-created="tasksStore.refreshTasks()"
+      />
     </div>
 
     <hr />
 
-    <table class="table" v-if="tasksStore.tasks !== null">
-      <thead>
-        <tr>
-          <th>Task</th>
-          <th>Deadline</th>
-          <th>Completed</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <task v-for="task in tasksStore.tasks" :task="task"></task>
-      </tbody>
-    </table>
+    <task-list
+      :tasks="tasksStore.tasks"
+      v-if="tasksStore.tasks"
+      @remove-task="onTaskRemove"
+      @select-task="onTaskSelect"
+    ></task-list>
 
     <div
       class="spinner-border text-success"

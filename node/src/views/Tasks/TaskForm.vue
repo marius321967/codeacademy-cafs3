@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { computed } from '@vue/reactivity'
 import axios from 'axios'
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import TaskPriorityInput from './TaskPriorityInput.vue'
-import { Priority } from '../../interfaces'
+import { Priority, type ITask } from '../../interfaces'
 import moment from 'moment'
+
+const props = defineProps<{
+  task: ITask | null
+}>()
 
 const emit = defineEmits<{
   (e: 'taskCreated'): void
+  (e: 'taskUpdated'): void
 }>()
 
 const isBusy = ref(false)
+const errorMessage = ref<string | null>(null)
+const errors = ref({})
 
 const form = reactive({
   title: '',
@@ -26,9 +33,7 @@ const formNormalized = computed(() => ({
     : null
 }))
 
-const errorMessage = ref<string | null>(null)
-
-const errors = ref({})
+const isEditing = computed(() => props.task !== null)
 
 const resetForm = () => {
   form.title = ''
@@ -54,12 +59,28 @@ const submit = () => {
     })
     .then(() => (isBusy.value = false))
 }
+
+watch(
+  () => props.task,
+  (newValue) => {
+    if (newValue === null) {
+      resetForm()
+    } else {
+      form.title = newValue.title
+      form.deadline = newValue.deadline || ''
+      form.priority = newValue.priority
+      form.is_completed = newValue.is_completed
+    }
+  }
+)
 </script>
 
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">New task</h5>
+      <h5 class="card-title">
+        {{ isEditing ? 'Edit task' : 'New task' }}
+      </h5>
 
       <div class="mb-3">
         <label for="title" class="form-label">Task</label>
@@ -78,7 +99,7 @@ const submit = () => {
         <label for="deadline" class="form-label">Deadline</label>
         <date-picker
           v-model="form.deadline"
-          format="yyyy-mm-dd HH:mm:ss"
+          format="yyyy-MM-dd HH:mm:ss"
         ></date-picker>
         <div class="form-text text-danger" v-if="errors.deadline">
           {{ errors.deadline.join(' ') }}

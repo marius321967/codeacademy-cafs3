@@ -22,10 +22,14 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   }
 
+  const removeTask = (id: number) =>
+    axios.delete(`http://localhost/tasks/${id}`).then(() => refreshTasks())
+
   return {
     tasks,
     isLoading,
     refreshTasks,
-    ensureTasksLoaded
+    ensureTasksLoaded,
+    removeTask
   }
 })
