@@ -4,6 +4,7 @@ import axios from 'axios'
 import { reactive, ref } from 'vue'
 import TaskPriorityInput from './TaskPriorityInput.vue'
 import { Priority } from '../../interfaces'
+import moment from 'moment'
 
 const emit = defineEmits<{
   (e: 'taskCreated'): void
@@ -18,7 +19,9 @@ const form = reactive({
 
 const formNormalized = computed(() => ({
   ...form,
-  deadline: form.deadline || null
+  deadline: form.deadline
+    ? moment(form.deadline).format('YYYY-MM-DD HH:mm:ss')
+    : null
 }))
 
 const errorMessage = ref<string | null>(null)
@@ -55,13 +58,23 @@ const submit = () => {
 
       <div class="mb-3">
         <label for="title" class="form-label">Task</label>
-        <input class="form-control" type="text" id="title" v-model.trim="form.title" />
-        <div class="form-text text-danger" v-if="errors.title">{{ errors.title.join(' ') }}</div>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          v-model.trim="form.title"
+        />
+        <div class="form-text text-danger" v-if="errors.title">
+          {{ errors.title.join(' ') }}
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="deadline" class="form-label">Deadline</label>
-        <input class="form-control" type="text" id="deadline" v-model.trim="form.deadline" />
+        <date-picker
+          v-model="form.deadline"
+          format="yyyy-mm-dd HH:mm:ss"
+        ></date-picker>
         <div class="form-text text-danger" v-if="errors.deadline">
           {{ errors.deadline.join(' ') }}
         </div>
