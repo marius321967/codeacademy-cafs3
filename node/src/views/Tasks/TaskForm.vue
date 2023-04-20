@@ -10,6 +10,8 @@ const emit = defineEmits<{
   (e: 'taskCreated'): void
 }>()
 
+const isBusy = ref(false)
+
 const form = reactive({
   title: '',
   deadline: '',
@@ -36,6 +38,8 @@ const resetForm = () => {
 }
 
 const submit = () => {
+  isBusy.value = true
+
   axios
     .post('http://localhost/tasks', formNormalized.value)
     .then(() => {
@@ -48,6 +52,7 @@ const submit = () => {
       errorMessage.value = err.response.data.message
       errors.value = err.response.data.errors
     })
+    .then(() => (isBusy.value = false))
 }
 </script>
 
@@ -96,7 +101,14 @@ const submit = () => {
       </div>
 
       <div class="mb-3">
-        <button class="btn btn-outline-success" @click="submit">Create</button>
+        <button
+          class="btn btn-outline-success"
+          @click="submit"
+          :disabled="isBusy"
+        >
+          <div class="spinner-border spinner-border-sm" v-if="isBusy"></div>
+          Create
+        </button>
       </div>
 
       <div class="mb-3" v-if="errorMessage">
