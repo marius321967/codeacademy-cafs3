@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\GreetingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
@@ -39,15 +42,14 @@ Route::middleware([
   Route::delete('/tasks/{id}', [TaskController::class, 'delete'])->whereNumber('id');
 });
 
-Route::prefix('/admin')->group(function () {
-  Route::middleware([])->group(function () {
-    Route::get('/', function () {
-      if (!Gate::allows('admin'))
-        return response(['error' => 'Unauthorized (not admin)'], 403);
+Route::middleware([
+  Authenticate::class
+])->group(function () {
+  Route::get('/auth/me', [AuthController::class, 'me']);
+});
 
-      return 'Welcome to the admin panel';
-    });
-  });
+Route::middleware(['admin'])->group(function () {
+  Route::get('/users', [UserController::class, 'list']);
 });
 
 Route::get('/exchange-rates', [ExchangeController::class, 'index']);
