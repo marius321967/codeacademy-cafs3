@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import Navigation from './components/Navigation.vue'
+import { onMounted } from 'vue'
+import { useAuthStore } from './stores/auth'
+
+const authStore = useAuthStore()
+
+onMounted(() => authStore.checkTokenStorage())
 </script>
 
 <template>
