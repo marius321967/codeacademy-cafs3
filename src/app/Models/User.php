@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements JWTSubject
 {
     protected $fillable = ['name', 'email'];
+    protected $hidden = ['password'];
 
     public function tasks(): HasMany
     {
