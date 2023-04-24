@@ -6,6 +6,7 @@ import Task from '../views/Task.vue'
 import Admin from '../views/Admin/Index.vue'
 import AdminHome from '../views/Admin/Home.vue'
 import AdminUsers from '../views/Admin/Users.vue'
+import Login from '../views/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +14,10 @@ const router = createRouter({
     {
       path: '/',
       component: Home
+    },
+    {
+      path: '/login',
+      component: Login
     },
     {
       path: '/about',
