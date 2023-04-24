@@ -42,7 +42,7 @@ class LoginController extends Controller
         if ($token) {
             return response()->json(['token' => $token]);
         } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Invalid credentials. Check your password or email.', 'errors' => []], 401);
         }
     }
 }
