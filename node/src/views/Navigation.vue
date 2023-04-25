@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { Role } from '../interfaces'
 import { useAuthStore } from '../stores/auth'
+import { roles } from '../composables/roles'
 
 const authStore = useAuthStore()
+
+const { isUserAdmin, isUserRegular } = roles()
 </script>
 
 <template>
@@ -23,17 +25,11 @@ const authStore = useAuthStore()
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
 
-          <li
-            class="nav-item"
-            v-if="authStore.isLoggedIn && authStore.user?.role == Role.regular"
-          >
+          <li class="nav-item" v-if="isUserRegular">
             <router-link class="nav-link" to="/user">App</router-link>
           </li>
 
-          <li
-            class="nav-item"
-            v-if="authStore.isLoggedIn && authStore.user?.role == Role.admin"
-          >
+          <li class="nav-item" v-if="isUserAdmin">
             <router-link class="nav-link" to="/admin">Admin</router-link>
           </li>
         </ul>
