@@ -5,10 +5,12 @@ import SideNavigation from './SideNavigation.vue'
 <template>
   <div class="admin-layout">
     <div class="admin-navigation">
-      <SideNavigation></SideNavigation>
+      <side-navigation></side-navigation>
     </div>
-    <div class="admin-page">
-      <router-view></router-view>
+    <div class="admin-page py-3">
+      <div class="container-fluid">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
