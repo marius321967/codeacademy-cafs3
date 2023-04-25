@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { IProduct } from '../../interfaces'
+import type { IProduct } from '../../../interfaces'
 import Product from './Product.vue'
 
 const products = ref<IProduct[]>([

@@ -7,6 +7,7 @@ import TaskPriorityIndicator from './components/TaskPriorityIndicator.vue'
 import router from './router'
 import Card from './components/ui/Card.vue'
 import SubmitButton from './components/ui/SubmitButton.vue'
+import GuestPage from './components/GuestPage.vue'
 
 const app = createApp(App)
 
@@ -14,6 +15,7 @@ app.component('TaskPriorityIndicator', TaskPriorityIndicator)
 app.component('DatePicker', VueDatePicker)
 app.component('SubmitButton', SubmitButton)
 app.component('Card', Card)
+app.component('GuestPage', GuestPage)
 
 app.use(createPinia())
 app.use(router)

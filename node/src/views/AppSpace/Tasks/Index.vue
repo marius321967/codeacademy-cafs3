@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useTasksStore } from '../stores/tasks'
-import TaskForm from './Tasks/TaskForm.vue'
-import TaskList from './Tasks/TaskList.vue'
-import type { ITask } from '../interfaces'
+import { useTasksStore } from '../../../stores/tasks'
+import TaskForm from './TaskForm.vue'
+import TaskList from './TaskList.vue'
+import type { ITask } from '../../../interfaces'
 
 const tasksStore = useTasksStore()
 

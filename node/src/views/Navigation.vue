@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Role } from '../interfaces'
 import { useAuthStore } from '../stores/auth'
 
 const authStore = useAuthStore()
@@ -15,18 +16,24 @@ const authStore = useAuthStore()
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <router-link class="nav-link" to="/">Home</router-link>
+            <router-link class="nav-link" to="/about">About</router-link>
           </li>
+
           <li class="nav-item" v-if="!authStore.isLoggedIn">
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/about">About</router-link>
+
+          <li
+            class="nav-item"
+            v-if="authStore.isLoggedIn && authStore.user?.role == Role.regular"
+          >
+            <router-link class="nav-link" to="/user">App</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/tasks">Tasks</router-link>
-          </li>
-          <li class="nav-item">
+
+          <li
+            class="nav-item"
+            v-if="authStore.isLoggedIn && authStore.user?.role == Role.admin"
+          >
             <router-link class="nav-link" to="/admin">Admin</router-link>
           </li>
         </ul>

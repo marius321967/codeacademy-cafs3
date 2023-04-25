@@ -11,7 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
   const httpClient = ref<AxiosInstance | null>(null)
   const user = ref<IUser | null>(null)
 
-  const isLoggedIn = computed(() => httpClient.value !== null)
+  const isLoggedIn = computed(() => user.value !== null)
 
   const loadHttpClient = () => {
     const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN_KEY)

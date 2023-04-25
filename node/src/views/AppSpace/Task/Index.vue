@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import type { ITask } from '../interfaces'
+import type { ITask } from '../../../interfaces'
 import axios from 'axios'
-import TaskDetails from './Task/TaskDetails.vue'
+import TaskDetails from './TaskDetails.vue'
 
 const props = defineProps<{
   id: string

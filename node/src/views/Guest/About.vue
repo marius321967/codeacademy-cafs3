@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="container">
+  <guest-page>
     <h1 class="mt-5">About us</h1>
     <p class="lead">
       Pin a footer to the bottom of the viewport in desktop browsers with this
@@ -14,5 +14,5 @@
       >
       if need be, too.
     </p>
-  </div>
+  </guest-page>
 </template>

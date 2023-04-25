@@ -3,7 +3,7 @@ import { computed } from '@vue/reactivity'
 import axios from 'axios'
 import { onMounted, reactive, ref, watch } from 'vue'
 import TaskPriorityInput from './TaskPriorityInput.vue'
-import { Priority, type ITask } from '../../interfaces'
+import { Priority, type ITask } from '../../../interfaces'
 import moment from 'moment'
 
 const props = defineProps<{

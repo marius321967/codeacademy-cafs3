@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { onMounted, reactive, ref } from 'vue'
-import { useAuthStore } from '../../stores/auth'
+import { useAuthStore } from '../../../stores/auth'
 import { useRouter } from 'vue-router'
 
 // fill login form
@@ -27,7 +27,7 @@ const submit = () => {
     .post('http://localhost/login', form)
     .then((res) => {
       authStore.registerToken(res.data.token)
-      router.push('/admin')
+      router.push('/')
     })
     .catch((err) => {
       errorMessage.value = err.response.data.message
