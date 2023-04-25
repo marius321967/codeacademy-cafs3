@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios'
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useAuthStore } from '../../stores/auth'
 import { useRouter } from 'vue-router'
 
@@ -18,6 +18,7 @@ const errorMessage = ref<string | null>(null)
 const isBusy = ref(false)
 const authStore = useAuthStore()
 const router = useRouter()
+const emailInputElement = ref<HTMLInputElement | null>(null)
 
 const submit = () => {
   isBusy.value = true
@@ -34,6 +35,8 @@ const submit = () => {
     })
     .then(() => (isBusy.value = false))
 }
+
+onMounted(() => emailInputElement.value?.focus())
 </script>
 
 <template>
@@ -48,6 +51,7 @@ const submit = () => {
           type="email"
           id="email"
           v-model.trim="form.email"
+          ref="emailInputElement"
         />
         <div class="form-text text-danger" v-if="errors.email">
           {{ errors.email.join(' ') }}
