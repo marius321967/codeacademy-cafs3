@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import type { ITask } from '../interfaces'
 import axios from 'axios'
-import Task from './Tasks/Task.vue'
+import TaskDetails from './Task/TaskDetails.vue'
 
 const props = defineProps<{
   id: string
@@ -20,8 +20,9 @@ onMounted(() => {
 <template>
   <div class="container">
     <div v-if="task !== null">
-      Your task is:
-      <strong>{{ task.title }}</strong>
+      <ul>
+        <task-details :task="task"></task-details>
+      </ul>
     </div>
   </div>
 </template>
