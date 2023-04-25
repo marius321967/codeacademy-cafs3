@@ -18,6 +18,7 @@ const emit = defineEmits<{
 const isBusy = ref(false)
 const errorMessage = ref<string | null>(null)
 const errors = ref({})
+const titleInputElement = ref<HTMLInputElement | null>(null)
 
 const form = reactive({
   title: '',
@@ -73,6 +74,8 @@ watch(
     }
   }
 )
+
+onMounted(() => titleInputElement.value?.focus())
 </script>
 
 <template>
