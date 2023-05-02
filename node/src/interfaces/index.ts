@@ -25,6 +25,7 @@ export type IUser = {
   id: number
   name: string
   email: string
+  has_avatar: boolean
   role: Role
   created_at: string | null
   updated_at: string | null

@@ -16,5 +16,6 @@ onMounted(() => authStore.checkTokenStorage())
 </template>
 
 <style lang="scss">
+@use './assets/app.scss';
 @use '../node_modules/bootstrap/scss/bootstrap.scss';
 </style>

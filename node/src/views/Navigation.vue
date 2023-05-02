@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { useAuthStore } from '../stores/auth'
 import { roles } from '../composables/roles'
+import CONFIG from '../config.json'
+import { computed } from 'vue'
 
 const authStore = useAuthStore()
 
 const { isUserAdmin, isUserRegular } = roles()
+
+const avatarElementStyle = computed(() => ({
+  backgroundImage: `url(${CONFIG.api.address}/users/${authStore.user?.id}/avatar)`
+}))
 </script>
 
 <template>
@@ -43,7 +49,15 @@ const { isUserAdmin, isUserRegular } = roles()
 
           <li class="nav-item">
             <router-link class="nav-link" to="/profile">
-              Profile ({{ authStore.user.name }})
+              <template v-if="!authStore.user.has_avatar">
+                Profile ({{ authStore.user.name }})
+              </template>
+
+              <div
+                class="avatar"
+                v-if="authStore.user.has_avatar"
+                :style="avatarElementStyle"
+              ></div>
             </router-link>
           </li>
         </ul>

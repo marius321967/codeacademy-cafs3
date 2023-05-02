@@ -23,7 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
     })
 
-    loadUserInfo()
+    reloadUserInfo()
   }
 
   const registerToken = (token: string) => {
@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (token !== null) loadHttpClient()
   }
 
-  const loadUserInfo = () =>
+  const reloadUserInfo = () =>
     httpClient.value?.get('/auth/me').then((res) => (user.value = res.data))
 
   const logout = () => {
@@ -53,6 +53,7 @@ export const useAuthStore = defineStore('auth', () => {
     isLoggedIn,
     registerToken,
     checkTokenStorage,
+    reloadUserInfo,
     logout
   }
 })

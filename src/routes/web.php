@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\GreetingController;
 use App\Http\Controllers\LoginController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Authenticate;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +48,8 @@ Route::middleware([
   Authenticate::class
 ])->group(function () {
   Route::get('/auth/me', [AuthController::class, 'me']);
+
+  Route::post('/profile/avatar', [AvatarController::class, 'upload']);
 });
 
 Route::middleware(['admin'])->group(function () {
@@ -53,3 +57,5 @@ Route::middleware(['admin'])->group(function () {
 });
 
 Route::get('/exchange-rates', [ExchangeController::class, 'index']);
+
+Route::get('/users/{id}/avatar', [AvatarController::class, 'getAvatar']);

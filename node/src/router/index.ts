@@ -9,6 +9,7 @@ import Task from '../views/AppSpace/Task/Index.vue'
 import Admin from '../views/Admin/Index.vue'
 import AdminHome from '../views/Admin/Home.vue'
 import AdminUsers from '../views/Admin/Users.vue'
+import Profile from '../views/Profile/Index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,6 +54,10 @@ const router = createRouter({
           component: AdminUsers
         }
       ]
+    },
+    {
+      path: '/profile',
+      component: Profile
     }
   ],
   linkActiveClass: 'active',
