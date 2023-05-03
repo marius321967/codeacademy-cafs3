@@ -33,5 +33,6 @@ export type IUser = {
 
 export enum Role {
   admin = 'admin',
-  regular = 'regular'
+  regular = 'regular',
+  moderator = 'moderator'
 }

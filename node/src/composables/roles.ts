@@ -11,9 +11,13 @@ export const roles = () => {
   const isUserRegular = computed<boolean>(
     () => authStore.user?.role === Role.regular
   )
+  const isUserModerator = computed<boolean>(
+    () => authStore.user?.role === Role.moderator
+  )
 
   return {
     isUserAdmin,
-    isUserRegular
+    isUserRegular,
+    isUserModerator
   }
 }

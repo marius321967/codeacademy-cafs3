@@ -36,7 +36,9 @@ const submit = () => {
     .then(() => (isBusy.value = false))
 }
 
-onMounted(() => emailInputElement.value?.focus())
+onMounted(() => {
+  emailInputElement.value?.focus()
+})
 </script>
 
 <template>
@@ -44,38 +46,41 @@ onMounted(() => emailInputElement.value?.focus())
     <div class="card-body">
       <h5 class="card-title">Login</h5>
 
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input
-          class="form-control"
-          type="email"
-          id="email"
-          v-model.trim="form.email"
-          ref="emailInputElement"
-        />
-        <div class="form-text text-danger" v-if="errors.email">
-          {{ errors.email.join(' ') }}
+      <template v-if="form">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            class="form-control"
+            type="email"
+            id="email"
+            v-model.trim="form.email"
+            ref="emailInputElement"
+          />
+          <div class="form-text text-danger" v-if="errors.email">
+            {{ errors.email.join(' ') }}
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          class="form-control"
-          type="password"
-          id="password"
-          v-model.trim="form.password"
-        />
-        <div class="form-text text-danger" v-if="errors.password">
-          {{ errors.password.join(' ') }}
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            class="form-control"
+            type="password"
+            id="password"
+            v-model.trim="form.password"
+          />
+          <div class="form-text text-danger" v-if="errors.password">
+            {{ errors.password.join(' ') }}
+          </div>
         </div>
-      </div>
+      </template>
 
       <div class="mb-3">
         <button
           class="btn btn-outline-success"
           @click="submit"
           :disabled="isBusy"
+          data-testid="submit-button"
         >
           <div class="spinner-border spinner-border-sm" v-if="isBusy"></div>
           Login
