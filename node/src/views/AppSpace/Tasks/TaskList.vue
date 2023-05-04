@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ITask } from '../../interfaces'
+import type { ITask } from '../../../interfaces'
 import Task from './Task.vue'
 
 const emit = defineEmits<{

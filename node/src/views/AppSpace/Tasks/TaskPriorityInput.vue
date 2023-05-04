@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { Priority } from '../../interfaces'
 import { computed } from '@vue/reactivity'
+import type { Priority } from '../../../interfaces'
 
 const props = defineProps<{
   modelValue: Priority
@@ -14,8 +14,12 @@ const emit = defineEmits<{
 const modelValue = computed(() => props.modelValue)
 const localModelValue = ref<Priority | null>(null)
 
-watch(modelValue, (newValue) => (localModelValue.value = newValue), { immediate: true })
-watch(localModelValue, (newValue) => emit('update:modelValue', newValue as Priority))
+watch(modelValue, (newValue) => (localModelValue.value = newValue), {
+  immediate: true
+})
+watch(localModelValue, (newValue) =>
+  emit('update:modelValue', newValue as Priority)
+)
 </script>
 
 <template>

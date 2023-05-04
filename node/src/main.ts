@@ -8,6 +8,8 @@ import router from './router'
 import Card from './components/ui/Card.vue'
 import SubmitButton from './components/ui/SubmitButton.vue'
 import GuestPage from './components/GuestPage.vue'
+import { getTasks, getTasksKey } from './services/getTasks'
+import { removeTask, removeTaskKey } from './services/removeTask'
 
 const app = createApp(App)
 
@@ -19,5 +21,8 @@ app.component('GuestPage', GuestPage)
 
 app.use(createPinia())
 app.use(router)
+
+app.provide(getTasksKey, getTasks)
+app.provide(removeTaskKey, removeTask)
 
 app.mount('#app')

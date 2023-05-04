@@ -2,7 +2,8 @@
 import { useAuthStore } from '../stores/auth'
 import { roles } from '../composables/roles'
 import CONFIG from '../config.json'
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
+import NavigationBrand from '../components/NavigationBrand.vue'
 
 const authStore = useAuthStore()
 
@@ -19,7 +20,7 @@ const avatarElementStyle = computed(() => ({
     aria-label="Second navbar example"
   >
     <div class="container-fluid">
-      <router-link class="navbar-brand" to="/">MyProduct</router-link>
+      <navigation-brand></navigation-brand>
 
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav me-auto">

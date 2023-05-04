@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ITask } from '../../interfaces'
+import type { ITask } from '../../../interfaces'
 
 // not assigned to const because we're only accessing it in template
 defineProps<{

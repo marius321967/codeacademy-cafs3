@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import TaskPriorityIndicator from './TaskPriorityIndicator.vue'
-import { Priority } from '../interfaces'
+import TaskPriorityIndicator from '../../src/components/TaskPriorityIndicator.vue'
+import { Priority } from '../../src/interfaces'
 
 describe('TaskPriorityIndicator', () => {
   it('should have class task-priority-low', () => {

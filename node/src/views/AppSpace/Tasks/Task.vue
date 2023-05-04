@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { ITask } from '../../interfaces'
+import type { ITask } from '../../../interfaces'
 
 const props = defineProps<{
   task: ITask
